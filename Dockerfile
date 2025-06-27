@@ -1,17 +1,38 @@
 FROM nginx:alpine
 
-# /cstate will be our volume & building directory
-WORKDIR /cstate
-
-# Install hugo & git
+# Install hugo and git
 RUN apk add --no-cache hugo git
 
-# Download the example site
-COPY exampleSite /cstate
+# Create working directories
+RUN mkdir -p /build /site
 
-# Copy files from this repo into themes/cstate
-RUN mkdir -p /cstate/themes/cstate
-COPY . /cstate/themes/cstate
+# Set working directory for building
+WORKDIR /build
 
-# Copy entrypoint script into the container image, this runs every time the container cold-starts.
-COPY ./docker/entrypoint.sh /docker-entrypoint.d/10-build-hugo.sh
+# Copy source files to build directory
+COPY . /build/
+
+# Copy example site to the site directory
+RUN cp -r /build/exampleSite/* /site/
+
+# Create themes directory and copy cstate theme
+RUN mkdir -p /site/themes/cstate && \
+    cp -r /build/* /site/themes/cstate/
+
+# Change to site directory and build
+WORKDIR /site
+
+# Build the Hugo site
+RUN hugo --minify
+
+# Copy built files to nginx directory
+RUN cp -r /site/public/* /usr/share/nginx/html/
+
+# Clean up build files
+RUN rm -rf /build /site
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
