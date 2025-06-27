@@ -43,7 +43,7 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: Eggsample Status
+title: IndoxRouter Status
 
 # Should posts, which have a publish date
 # from the future, be built? Useful for
@@ -97,7 +97,7 @@ defaultContentLanguage: en
 #
 # Broken example:
 # baseUrl: /
-baseURL: https://example.com
+baseURL: https://indoxrouter.com/
 
 # For features like Last modified, you
 # need to use a Git repository. If you
@@ -110,7 +110,6 @@ baseURL: https://example.com
 # We recommend to keep this at `true`.
 # BOOLEAN; `true`, `false`
 enableGitInfo: false
-
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -167,7 +166,7 @@ params:
       description: The web frontend for the application.
       category: Uncategorized
       histogram: false # explicitly disable histogram for this system
-      link: https://example.com/
+      link: https://indoxrouter.com/
     - name: API
       description: The guts of the application.
       category: Uncategorized
@@ -430,7 +429,6 @@ params:
   #
   # Default: UA-00000000-1
   googleAnalytics: UA-00000000-1
-
 
 # These options affect the core of cState.
 # Please do not change them if you do not
